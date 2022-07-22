@@ -1,13 +1,18 @@
 import "./main.css";
+import Button from '@mui/material/Button';
+import { Link } from "react-router-dom";
 
-export default function Main(){
+const Main = () =>{
     return (
         <div className="main">
-            <p> Main </p>
+            <div className = "start-button">
+            <Button variant="contained">
+                <Link to = "/selection"  style={{ color: 'inherit', textDecoration: 'inherit'}}>
+                Start
+                </Link>
+            </Button>
+            </div>
         </div>
     )
-
-    
-    
-
-}
+};
+export default Main;

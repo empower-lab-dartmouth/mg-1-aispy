@@ -1,0 +1,12 @@
+.main{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.start-button{
+    position:absolute;
+    top: 60%;
+    left:47%;
+}
