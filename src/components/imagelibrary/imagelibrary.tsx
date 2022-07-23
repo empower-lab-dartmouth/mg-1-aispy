@@ -32,15 +32,15 @@ const Imagelibrary = () => {
 
              {Images.map((value, index) => {
                 return (
-            <button className = "space" id = {index.toString()} onClick = {() => chooseimage(value, index)}>
-            <img src = {"../assets/"+value.path} height = "200px" width = "200px"/>
-            </button>) }
+            <Button className = "space" id = {index.toString()} onClick = {() => chooseimage(value, index)}>
+            <img src = {"../assets/images/"+value.path} height = "200px" width = "200px"/>
+            </Button>) }
             )}
             
             </div>
 
             <div className = "confirm-box">
-            <img  className = "downspace" src = {"../assets/"+selectedimage.path}/>
+            <img  className = "downspace" src = {"../assets/images/"+selectedimage.path} height = "200px" width = "200px"/>
             <Button variant="contained">
                 <Link to = "/play"  style={{ color: 'inherit', textDecoration: 'inherit'}}>
                 Confirm

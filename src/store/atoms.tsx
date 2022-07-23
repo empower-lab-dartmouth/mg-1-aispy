@@ -9,3 +9,13 @@ export const currentimage = atom<image>({
         "id" : 0,
     },
 })
+
+export const gamemodel = atom({
+    key: "game-model",
+    default: 0,
+})
+
+export const gamestate = atom({
+    key: "game-state",
+    default: 1,
+})
