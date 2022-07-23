@@ -3,6 +3,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { Link } from "react-router-dom";
 import Input from '@mui/material/Input';
+import Dictaphone from './dictaphoneSetup.js'
 
 
 function Play(){
@@ -17,8 +18,10 @@ function Play(){
                <Button variant="outlined">Replay</Button>
            </div>
            <div className = "texts">
-           <Input className = "space" placeholder="Answer" inputProps={ariaLabel} />
-           <Button variant="outlined">Record</Button>
+           {/* <Input className = "space" placeholder="Answer" inputProps={ariaLabel} />
+           <Button variant="outlined">Record</Button>    */}
+           <Dictaphone />        
+
            </div>
         </div>    
     )
