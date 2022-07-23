@@ -1,5 +1,5 @@
 export type image = {
-    lable : string,
+    lable : string[][],
     path :  string,
     id : number,
 }
