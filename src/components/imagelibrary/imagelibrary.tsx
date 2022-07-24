@@ -17,7 +17,7 @@ const Imagelibrary = () => {
         originalbutton.style.backgroundColor = "";
      }
 
-     setselectedimage({lable: value.lable, path: value.path, id: index});
+     setselectedimage({label: value.label, path: value.path, id: index});
 
      var button = document.getElementById(index.toString());
      if(button){

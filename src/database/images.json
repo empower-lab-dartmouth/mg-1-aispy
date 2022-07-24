@@ -1,50 +1,85 @@
 [
     {
-          "lable" : [[""]],
+          "label" : [
+            ["red", "apple"],
+            ["blue", "sky"]
+          ],
           "path" : "image.png"
     },
     {
-        "lable" : [[""]],
+          "label" : [
+            ["red", "apple"],
+            ["green", "leaf"]
+          ],
         "path" : "apple.jpg"
     },
     {
-        "lable" : [[""]],
+          "label" : [
+            ["yellow", "flower", "sunflower", "pedals"],
+            ["green", "leaf", "leaves"]
+          ],
         "path" : "flower.jpg"
      },
      {
-        "lable" : [[""]],
+          "label" : [
+            ["red", "flower"],
+            ["green", "leaf", "leaves"]
+          ],
         "path" : "flower2.webp"
      },
      {
-        "lable" : [[""]],
+          "label" : [
+            ["white", "flower"],
+            ["green", "leaves"]
+          ],
         "path" : "flower3.webp"
      },
      {
-        "lable" : [[""]],
+          "label" : [
+            ["brown", "potato", "potatoes"]
+          ],
         "path" : "potato.jpg"
      },
      {
-        "lable" : [[""]],
+          "label" : [
+            ["red", "apple"],
+            ["blue", "sky"]
+          ],
         "path" : "image.png"
      },
      {
-        "lable" : [[""]],
+          "label" : [
+            ["red", "apple"],
+            ["blue", "sky"]
+          ],
         "path" : "image.png"
      },
      {
-        "lable" : [[""]],
+          "label" : [
+            ["red", "apple"],
+            ["blue", "sky"]
+          ],
         "path" : "image.png"
      },
      {
-        "lable" : [[""]],
+          "label" : [
+            ["red", "apple"],
+            ["blue", "sky"]
+          ],
         "path" : "image.png"
      },
      {
-        "lable" : [[""]],
+          "label" : [
+            ["red", "apple"],
+            ["blue", "sky"]
+          ],
         "path" : "image.png"
      },
      {
-        "lable" : [[""]],
+          "label" : [
+            ["red", "apple"],
+            ["blue", "sky"]
+          ],
         "path" : "image.png"
      }
 

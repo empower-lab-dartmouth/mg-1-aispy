@@ -25,7 +25,7 @@ function Play(){
         if(model == YOUSPY){
             setstate(OBJECT);
             let random = randomnumber(0, Images.length-1);
-            setselectedimage({lable: Images[random].lable, path: Images[random].path, id: random});
+            setselectedimage({label: Images[random].label, path: Images[random].path, id: random});
         }
         else{
         setstate(COLOR);
