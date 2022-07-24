@@ -88,8 +88,8 @@ function Play(){
                <Button variant="outlined">Replay</Button>
            </div>
            <div className = "texts">
-           {/* <Input className = "space" placeholder="Answer" inputProps={ariaLabel} />
-           <Button variant="outlined">Record</Button>    */}
+           <Input className = "space" placeholder="Answer" inputProps={ariaLabel} />
+           <Button variant="outlined" onClick = {() => changestate()} >Confirm</Button>    
            <Dictaphone />        
 
            </div>
