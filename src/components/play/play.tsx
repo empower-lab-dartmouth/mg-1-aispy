@@ -55,7 +55,23 @@ function Play(){
         }
 
     }
+
     
+    if (state == OBJECT && model == AISPY) { // guess an object in the current image
+        var color = "red"; // need get user selected color
+        var colorObj = currentimage.label[randomnumber(0, currentimage.label.length - 1)]; // need get current image's labels -> get one of the items (color and objects)
+        for (var i = 0; i < currentimage.label.length; i++) {
+            if (currentimage.label[i][0] == color) {
+                var obj = currentimage.label[i][randomnumber(1, currentimage.label.length - 1)]; // guess random object of corresponding color
+            }
+        }
+    }
+
+    if (state == LEARN && model == AISPY) { // add new object corresponding to guessing color
+        var newObj = "apple"; // need get user object
+        var color = "red"; // need user selected color
+        // update label: insert newObj into corresponding color
+    }
 
     return (
         <div className = "play">
@@ -63,15 +79,15 @@ function Play(){
            <div className = "texts">
             {
                 state == COLOR && model == AISPY &&
-               <p className = "space">Tell me the color to spy!</p>
+               <p className = "space">Tell me a color to spy!</p>
             }
             {
                 state == OBJECT && model == AISPY &&
-                <p className = "space">Is it an apple?</p>
+                <p className = "space">I think it is: { obj }</p>
             }
             {
                 state == OBJECT && model == YOUSPY &&
-                <p className = "space">Can you spy the object in red?</p>
+                <p className = "space">Can you spy the object in { colorObj[0] }?</p>
             }
             {
                 state == LEARN && model == AISPY &&
