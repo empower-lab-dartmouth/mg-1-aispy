@@ -25,3 +25,8 @@
     top: 10%;
     left: 10%;
 }
+.recordbox{
+    position: relative;
+    top: 25px;
+    margin-left: 50px;
+}

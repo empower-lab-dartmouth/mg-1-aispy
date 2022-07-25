@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
-// import Moment from 'react-moment';
-import recordingLoop from './call_record_loop.gif';
-import recordButton from './record-button.png';
-import resetButton from './reset-button.jpeg';
-import oscilloscopeImg from './oscilloscope.jpeg';
 // import moment from 'moment';
 var messageMode; // which type of message to listen to
 var noiseNormalMessage = '', normalSecretMessage = ''; // combination of two messages
@@ -99,32 +94,29 @@ const Dictaphone1 = () => {
     }
     return (
         <div>
-            <div>
-                <h1>Answer:</h1>
-            <div>
+           
             {/* <img src={oscilloscopeImg} /> */}
-            <br />
-            <button style={{marginBottom: '50px'}}>
-                <img style={buttonCSS} src={resetButton} onClick={clearAll} />
+            <button style={{marginBottom: '50px'}} >
+                <img style={buttonCSS} src="../assets/UI/reset-button.jpeg" onClick={clearAll} />
             </button>
             <button style={{marginBottom: '50px'}}>
-            { isListening ? <img style={buttonCSS} src={recordingLoop} onClick={stopListening} /> : 
-            <img style={buttonCSS} src={recordButton} onClick={listenForMessage} />}
+            { isListening ? <img style={buttonCSS} src="../assets/UI/call_record_loop.gif" onClick={stopListening} /> : 
+            <img style={buttonCSS} src="../assets/UI/record-button.png" onClick={listenForMessage} />}
             </button>
             
-            </div>
-            </div>
+           
             <div>
                 {(() => Object.entries(messages).sort(([k1, v1], [k2, v3]) => k2 - k1).map(([key, message]) => 
                     <div key={key} style={roundedCornersCSS}>
                     {/* <Moment fromNow> {(new Date(parseInt(key))).toDateString()}</Moment> */}
-                    <p>{message}</p><br />
+                    <p>message</p><br />
                     {/* <button style={{color:'darkgray'}} onClick={() => {
                         const { [key]: _, ...otherMessages} = messages;
                         setMessages(otherMessages);
                     }} > Delete</button> */}
-                    </div>))()
-                }
+               
+                    </div>)
+                    )}
             </div>
         </div>
     );

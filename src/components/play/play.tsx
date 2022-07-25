@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { Link } from "react-router-dom";
 import Input from '@mui/material/Input';
-import Dictaphone from './dictaphoneSetup.js'
+import Dictaphone from './dictaphoneSetup'
 import React, { useEffect } from "react"; 
 import {useRecoilState, useRecoilValue} from "recoil";
 import {currentimage, gamemodel, gamestate, object, colorObject, oldObject} from "../../store";
@@ -116,10 +116,11 @@ function Play(){
            </div>
            <div className = "texts">
            <Input className = "space" placeholder="Answer" inputProps={ariaLabel} />
-           <Button variant="outlined" onClick = {() => changestate()} >Confirm</Button>    
-           <Dictaphone />        
-
+           <div className = "recordbox">
+           <Dictaphone />     
            </div>
+           </div>
+           <Button variant="outlined" onClick = {() => changestate()} >Confirm</Button>    
         </div>    
     )
 };
