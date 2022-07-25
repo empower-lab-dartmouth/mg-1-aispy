@@ -38,3 +38,11 @@ export const readtext = atom({
     default: "",
 })
 
+export const lastmodel = atom({
+    key: "last-model",
+    default: {
+        state: 0,
+        model: 0,
+    },
+})
+

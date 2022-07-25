@@ -6,7 +6,7 @@ import Input from '@mui/material/Input';
 import Dictaphone from './dictaphoneSetup'
 import React, { useEffect, useRef } from "react"; 
 import {useRecoilState, useRecoilValue} from "recoil";
-import {currentimage, game, object, colorObject, oldObject, readtext} from "../../store";
+import {currentimage, game, object, colorObject, oldObject, readtext, lastmodel} from "../../store";
 import {AISPY, YOUSPY, COLOR, OBJECT, LEARN, END} from "../../models/names";
 import {randomnumber} from "../../editor/randomnumber";
 import Images from "../../database/images.json";
@@ -24,11 +24,12 @@ function Play(){
     const [colorObj, setcolorObj] = useRecoilState(colorObject);
     const [oldObj, setoldObj] = useRecoilState(oldObject);
     const [read, setread] = useRecoilState(readtext);
+    const [last ,setlast] = useRecoilState(lastmodel);
+   
 
-    const isFirst = useRef(true);
- 
     const msg = new SpeechSynthesisUtterance();
     msg.text = read;
+    const isFirst = useRef(true);
    
 
 
@@ -40,8 +41,19 @@ function Play(){
     },[])
 
     useEffect (() => {
-        if(isFirst.current){
-            isFirst.current = false;
+        // only voice out after the read updates
+        if(isFirst.current == true){
+             isFirst.current = false;
+             if(gamesys.model == YOUSPY && gamesys.state == OBJECT){
+                if(last.model == YOUSPY && last.state == OBJECT){
+                window.speechSynthesis.speak(msg)
+                }
+             }
+             else if(gamesys.model == AISPY && gamesys.state == COLOR){
+                if(last.model == AISPY && last.state == COLOR){
+                    window.speechSynthesis.speak(msg)
+                    }
+             }
         }
         else{
         window.speechSynthesis.speak(msg)
@@ -93,7 +105,7 @@ function Play(){
     return (
         <div className = "play">
             <div className = "backbox">
-            <Button variant="outlined" onClick = {() =>   isFirst.current = true}>
+            <Button variant="outlined" onClick = {() => setlast({state: gamesys.state, model: gamesys.model})  }>
                <Link to = "/selection"  style={{ color: 'inherit', textDecoration: 'inherit'}}>
                 Back
                 </Link>
