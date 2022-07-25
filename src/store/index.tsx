@@ -1,10 +1,10 @@
-import { currentimage, gamemodel, gamestate, object, colorObject, oldObject } from "./atoms";
+import { currentimage, game, object, colorObject, oldObject, readtext } from "./atoms";
 
 export {
     currentimage,
-    gamemodel,
-    gamestate,
+    game,
     object,
     colorObject,
     oldObject,
+    readtext,
 }

@@ -10,14 +10,12 @@ export const currentimage = atom<image>({
     },
 })
 
-export const gamemodel = atom({
-    key: "game-model",
-    default: 0,
-})
-
-export const gamestate = atom({
-    key: "game-state",
-    default: 1,
+export const game = atom({
+    key: "game",
+    default: {
+        state: 0,
+        model: 0,
+    },
 })
 
 export const object = atom({
@@ -32,6 +30,11 @@ export const colorObject = atom({
 
 export const oldObject = atom({
     key: "old-object",
+    default: "",
+})
+
+export const readtext = atom({
+    key: "read-text",
     default: "",
 })
 
