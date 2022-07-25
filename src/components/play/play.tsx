@@ -6,7 +6,7 @@ import Input from '@mui/material/Input';
 import Dictaphone from './dictaphoneSetup.js'
 import React, { useEffect } from "react"; 
 import {useRecoilState, useRecoilValue} from "recoil";
-import {currentimage, gamemodel, gamestate, object, colorObject} from "../../store";
+import {currentimage, gamemodel, gamestate, object, colorObject, oldObject} from "../../store";
 import {AISPY, YOUSPY, COLOR, OBJECT, LEARN, END} from "../../models/names";
 import {randomnumber} from "../../editor/randomnumber";
 import Images from "../../database/images.json";
@@ -22,6 +22,7 @@ function Play(){
     const [selectedimage, setselectedimage] = useRecoilState(currentimage);
     const [obj, setobj] = useRecoilState(object);
     const [colorObj, setcolorObj] = useRecoilState(colorObject);
+    const [oldObj, setoldObj] = useRecoilState(oldObject);
  
 
 
@@ -53,9 +54,12 @@ function Play(){
             if(model == AISPY){
                 setstate(LEARN);
                 // add new object corresponding to guessing color
-                var newObj = "apple"; // need get user object
-                var color = "red"; // need user selected color
+                var newObj = "app"; // need get user object
+
                 // update label: insert newObj into corresponding color
+                setoldObj(obj);
+                setobj(newObj);
+              
             }
             else{
                 setstate(END);
@@ -75,6 +79,13 @@ function Play(){
 
     return (
         <div className = "play">
+            <div className = "backbox">
+            <Button variant="outlined">
+               <Link to = "/selection"  style={{ color: 'inherit', textDecoration: 'inherit'}}>
+                Back
+                </Link>
+            </Button>
+            </div>
            <img src = {"../assets/images/"+selectedimage.path} height = "200px" width = "200px"/>
            <div className = "texts">
             {
@@ -91,7 +102,7 @@ function Play(){
             }
             {
                 state == LEARN && model == AISPY &&
-                <p className = "space">I got it! It is not an apple! It is a banana!</p>
+                <p className = "space">I got it! It is not {oldObj}. It is {obj}!</p>
             }
             {
                 state == END && model == AISPY &&

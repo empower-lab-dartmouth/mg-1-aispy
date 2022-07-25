@@ -30,3 +30,8 @@ export const colorObject = atom({
     default: "",
 })
 
+export const oldObject = atom({
+    key: "old-object",
+    default: "",
+})
+
