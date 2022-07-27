@@ -11,9 +11,7 @@ import {AISPY, YOUSPY, COLOR, OBJECT, LEARN, END} from "../../models/names";
 import {randomnumber} from "../../editor/randomnumber";
 import Images from "../../database/images.json";
 import { Conversation } from "../../editor/conversation";
-
-
-
+import useSpeechToText from 'react-hook-speech-to-text';
 
 function Play(){
 
@@ -25,6 +23,20 @@ function Play(){
     const [oldObj, setoldObj] = useRecoilState(oldObject);
     const [read, setread] = useRecoilState(readtext);
     const [last ,setlast] = useRecoilState(lastmodel);
+
+
+    const {
+        error,
+        interimResult,
+        isRecording,
+        results,
+        startSpeechToText,
+        stopSpeechToText,
+      } = useSpeechToText({
+        continuous: true,
+        useLegacyResults: false
+      });
+    
    
 
     const msg = new SpeechSynthesisUtterance();
@@ -46,12 +58,12 @@ function Play(){
              isFirst.current = false;
              if(gamesys.model == YOUSPY && gamesys.state == OBJECT){
                 if(last.model == YOUSPY && last.state == OBJECT){
-                window.speechSynthesis.speak(msg)
+                window.speechSynthesis.speak(msg);
                 }
              }
              else if(gamesys.model == AISPY && gamesys.state == COLOR){
                 if(last.model == AISPY && last.state == COLOR){
-                    window.speechSynthesis.speak(msg)
+                    window.speechSynthesis.speak(msg);
                     }
              }
         }
@@ -59,6 +71,22 @@ function Play(){
         window.speechSynthesis.speak(msg)
         }
     },[read])
+
+    const stop = () => {
+        stopSpeechToText();
+       let ans = (document.getElementById("inputline") as  HTMLInputElement).value;  
+
+       results.map((result: any, index) => {
+        if(result.transcript != "undefined"){
+            ans=result.transcript;
+        }
+        return true;
+       });
+
+       
+       
+       (document.getElementById("inputline") as  HTMLInputElement).value = ans;
+    }
 
 
     const changestate = async() => {
@@ -117,11 +145,17 @@ function Play(){
                <Button variant="outlined" onClick = {() =>  window.speechSynthesis.speak(msg)}>Replay</Button>
            </div>
            <div className = "texts">
-           <Input className = "space" placeholder="Answer" inputProps={ariaLabel} />
-           <div className = "recordbox">
-           <Dictaphone />     
+
+           <Input className = "space" id = "inputline" placeholder="Answer" inputProps={ariaLabel} />
+       
+           <Button  variant="outlined"onClick={isRecording ? stop :  startSpeechToText}>
+              {isRecording ? 'Recording' : 'Record'}
+           </Button>
+
            </div>
-           </div>
+           <ul>
+           {interimResult && <li>{interimResult}</li>}
+            </ul>
            <Button variant="outlined" onClick = {() => changestate()} >Confirm</Button>    
         </div>    
     )

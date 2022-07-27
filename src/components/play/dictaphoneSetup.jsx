@@ -9,6 +9,7 @@ var isListening = false;
 const Dictaphone1 = () => {
     const [messages, setMessages] = useState({});
     const [transcriptStartTimestamp, setTranscriptStartTimestamp] = useState(-1);
+    
 
     const commands = [];
     const {
