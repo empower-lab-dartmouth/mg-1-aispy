@@ -93,7 +93,9 @@ function Play(){
          if(gamesys.state == COLOR){
             setgamesys({...gamesys, state:OBJECT});
             // guess an object in the current image
-            var color = "red"; // need get user selected color
+            // set a variable to the input color from the user
+            let color = (document.getElementById("inputline") as  HTMLInputElement).value;
+            // var color = "red";
             setcolorObj(selectedimage.label[randomnumber(0, selectedimage.label.length - 1)][0]); // need get current image's labels -> get one of the items (color and objects)
             for (var i = 0; i < selectedimage.label.length; i++) {
                 if (selectedimage.label[i][0] == color) {
@@ -105,11 +107,25 @@ function Play(){
             if(gamesys.model == AISPY){
                 setgamesys({...gamesys, state:LEARN});
                 // add new object corresponding to guessing color
-                var newObj = "app"; // need get user object
+                // find (document.getElementById("inputline") as  HTMLInputElement).value in labels and set it to the new object
+                var newObj = (document.getElementById("inputline") as  HTMLInputElement).value;
+                // find value with newObj label
+                for (var i = 0; i < selectedimage.label.length; i++) {
+                    if (selectedimage.label[i][0] == newObj) {
+                        setoldObj(selectedimage.label[i][randomnumber(1,selectedimage.label.length - 1)]);
+                    }
+                }
 
+                // var newObj = "app"; 
+                
                 // update label: insert newObj into corresponding color
-                setoldObj(obj);
-                setobj(newObj);
+                for (var i = 0; i < selectedimage.label.length; i++) {
+                    if (selectedimage.label[i][0] == colorObj) {
+                        selectedimage.label[i].push(newObj);
+                    }
+                }
+                // setoldObj(obj);
+                // setobj(newObj);
               
             }
             else{
