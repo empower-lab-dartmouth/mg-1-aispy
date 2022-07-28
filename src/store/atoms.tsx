@@ -20,17 +20,17 @@ export const game = atom({
 
 export const object = atom({
     key: "object",
-    default: "",
+    default: "NA",
 })
 
 export const colorObject = atom({
     key: "object-color",
-    default: "",
+    default: "NA",
 })
 
 export const oldObject = atom({
     key: "old-object",
-    default: "",
+    default: "NA",
 })
 
 export const readtext = atom({

@@ -83,38 +83,40 @@ function Play(){
         return true;
        });
 
-       
-       
        (document.getElementById("inputline") as HTMLInputElement).value = ans;
     }
 
 
     const changestate = async() => {
          if(gamesys.state == COLOR){
-            setgamesys({...gamesys, state:OBJECT});
+          
             // guess an object in the current image
             // set a variable to the input color from the user
             let color = (document.getElementById("inputline") as  HTMLInputElement).value.toLowerCase();
             // var color = "red";
-            setcolorObj(selectedimage.label[randomnumber(0, selectedimage.label.length - 1)][0]); // need get current image's labels -> get one of the items (color and objects)
+            await setcolorObj(selectedimage.label[randomnumber(0, selectedimage.label.length - 1)][0]); // need get current image's labels -> get one of the items (color and objects)
+            
+            await setobj("NA");
+            await setoldObj("NA");
+
             for (var i = 0; i < selectedimage.label.length; i++) {
                 if (selectedimage.label[i][0] == color) {
-                    var obj = selectedimage.label[i][randomnumber(1,selectedimage.label.length - 1)];
-                    setobj(obj); // update current guess
-                    setoldObj(obj); // remember current guess for possible later correction (learning)
+                    var obj = selectedimage.label[i][randomnumber(1,selectedimage.label[i].length - 1)];
+                    await setobj(obj); // update current guess
+                    await setoldObj(obj); // remember current guess for possible later correction (learning)
                     // setobj(selectedimage.label[i][randomnumber(1,selectedimage.label.length - 1)]); // guess random object of corresponding color
                 }
             }
+            setgamesys({...gamesys, state:OBJECT});
          }
         else if(gamesys.state == OBJECT){
             if(gamesys.model == AISPY){
-                setgamesys({...gamesys, state:LEARN});
                 // add new object corresponding to guessing color
                 // find (document.getElementById("inputline") as  HTMLInputElement).value in labels and set it to the new object
                 var newAns = (document.getElementById("inputline") as  HTMLInputElement).value.toLowerCase().split(" ");
                 var newObj = "";
                 for (let i = 0; i < newAns.length - 1; i++) {
-                    if (newAns[i] === "a" || newAns[i] === "an") { // "it is a/an [object]", "this object is a/an [object]"
+                    if (newAns[i] === "a" || newAns[i] === "an" || newAns[i] === "the") { // "it is a/an [object]", "this object is a/an [object]"
                         newObj = newAns[i + 1];
                     }
                 }
@@ -122,11 +124,14 @@ function Play(){
                 // update label: insert newObj into corresponding color
                 for (var i = 0; i < selectedimage.label.length; i++) {
                     if (selectedimage.label[i][0] == colorObj) {
-                        selectedimage.label[i].push(newObj);
+                        //selectedimage.label[i].push(newObj);
+                        // should find another way to change the images in json file
                     }
                 }
                 // setoldObj(obj);
-                // setobj(newObj);
+                console.log("new!", newObj);
+                await setobj(newObj);
+                await setgamesys({...gamesys, state:LEARN});
               
             }
             else{
