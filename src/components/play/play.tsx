@@ -114,7 +114,7 @@ function Play(){
                 // add new object corresponding to guessing color
                 // find (document.getElementById("inputline") as  HTMLInputElement).value in labels and set it to the new object
                 var newAns = (document.getElementById("inputline") as  HTMLInputElement).value.toLowerCase().split(" ");
-                var newObj = "";
+                var newObj = "NA";
                 for (let i = 0; i < newAns.length - 1; i++) {
                     if (newAns[i] === "a" || newAns[i] === "an" || newAns[i] === "the") { // "it is a/an [object]", "this object is a/an [object]"
                         newObj = newAns[i + 1];
@@ -149,6 +149,7 @@ function Play(){
                 setgamesys({...gamesys, state:OBJECT});
             }
         }
+        (document.getElementById("inputline") as HTMLInputElement).value = "";
     }
 
 
