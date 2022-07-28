@@ -58,34 +58,34 @@ function Play(){
              isFirst.current = false;
              if(gamesys.model == YOUSPY && gamesys.state == OBJECT){
                 if(last.model == YOUSPY && last.state == OBJECT){
-                window.speechSynthesis.speak(msg);
+                    window.speechSynthesis.speak(msg);
                 }
              }
              else if(gamesys.model == AISPY && gamesys.state == COLOR){
                 if(last.model == AISPY && last.state == COLOR){
                     window.speechSynthesis.speak(msg);
-                    }
+                }
              }
         }
         else{
-        window.speechSynthesis.speak(msg)
+            window.speechSynthesis.speak(msg)
         }
     },[read])
 
     const stop = () => {
         stopSpeechToText();
-       let ans = (document.getElementById("inputline") as  HTMLInputElement).value;  
+        let ans = (document.getElementById("inputline") as  HTMLInputElement).value;  
 
-       results.map((result: any, index) => {
+        results.map((result: any, index) => {
         if(result.transcript != "undefined"){
-            ans=result.transcript;
+            ans = result.transcript;
         }
         return true;
        });
 
        
        
-       (document.getElementById("inputline") as  HTMLInputElement).value = ans;
+       (document.getElementById("inputline") as HTMLInputElement).value = ans;
     }
 
 
@@ -94,12 +94,15 @@ function Play(){
             setgamesys({...gamesys, state:OBJECT});
             // guess an object in the current image
             // set a variable to the input color from the user
-            let color = (document.getElementById("inputline") as  HTMLInputElement).value;
+            let color = (document.getElementById("inputline") as  HTMLInputElement).value.toLowerCase();
             // var color = "red";
             setcolorObj(selectedimage.label[randomnumber(0, selectedimage.label.length - 1)][0]); // need get current image's labels -> get one of the items (color and objects)
             for (var i = 0; i < selectedimage.label.length; i++) {
                 if (selectedimage.label[i][0] == color) {
-                    setobj(selectedimage.label[i][randomnumber(1,selectedimage.label.length - 1)]); // guess random object of corresponding color
+                    var obj = selectedimage.label[i][randomnumber(1,selectedimage.label.length - 1)];
+                    setobj(obj); // update current guess
+                    setoldObj(obj); // remember current guess for possible later correction (learning)
+                    // setobj(selectedimage.label[i][randomnumber(1,selectedimage.label.length - 1)]); // guess random object of corresponding color
                 }
             }
          }
@@ -108,16 +111,14 @@ function Play(){
                 setgamesys({...gamesys, state:LEARN});
                 // add new object corresponding to guessing color
                 // find (document.getElementById("inputline") as  HTMLInputElement).value in labels and set it to the new object
-                var newObj = (document.getElementById("inputline") as  HTMLInputElement).value;
-                // find value with newObj label
-                for (var i = 0; i < selectedimage.label.length; i++) {
-                    if (selectedimage.label[i][0] == newObj) {
-                        setoldObj(selectedimage.label[i][randomnumber(1,selectedimage.label.length - 1)]);
+                var newAns = (document.getElementById("inputline") as  HTMLInputElement).value.toLowerCase().split(" ");
+                var newObj = "";
+                for (let i = 0; i < newAns.length - 1; i++) {
+                    if (newAns[i] === "a" || newAns[i] === "an") { // "it is a/an [object]", "this object is a/an [object]"
+                        newObj = newAns[i + 1];
                     }
                 }
 
-                // var newObj = "app"; 
-                
                 // update label: insert newObj into corresponding color
                 for (var i = 0; i < selectedimage.label.length; i++) {
                     if (selectedimage.label[i][0] == colorObj) {
