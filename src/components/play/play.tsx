@@ -32,6 +32,7 @@ function Play(){
         results,
         startSpeechToText,
         stopSpeechToText,
+        setResults,
       } = useSpeechToText({
         continuous: true,
         useLegacyResults: false
@@ -72,18 +73,24 @@ function Play(){
         }
     },[read])
 
+    const start = () => {
+        startSpeechToText();
+    }
+
     const stop = () => {
         stopSpeechToText();
         let ans = (document.getElementById("inputline") as  HTMLInputElement).value;  
 
         results.map((result: any, index) => {
-        if(result.transcript != "undefined"){
+         if(result.transcript != "undefined"){
             ans = result.transcript;
         }
         return true;
        });
 
        (document.getElementById("inputline") as HTMLInputElement).value = ans;
+       setResults([]);
+       
     }
 
 
@@ -116,9 +123,12 @@ function Play(){
                 var newAns = (document.getElementById("inputline") as  HTMLInputElement).value.toLowerCase().split(" ");
                 var newObj = "NA";
                 for (let i = 0; i < newAns.length - 1; i++) {
-                    if (newAns[i] === "a" || newAns[i] === "an" || newAns[i] === "the") { // "it is a/an [object]", "this object is a/an [object]"
+
+
+                    if (newAns[i] === "a" || newAns[i] === "an" || newAns[i] === "the" || newAns[i] === "is") { // "it is a/an [object]", "this object is a/an [object]"
                         newObj = newAns[i + 1];
                     }
+                    
                 }
 
                 // update label: insert newObj into corresponding color
@@ -171,7 +181,7 @@ function Play(){
 
            <Input className = "space" id = "inputline" placeholder="Answer" inputProps={ariaLabel} />
        
-           <Button  variant="outlined"onClick={isRecording ? stop :  startSpeechToText}>
+           <Button  variant="outlined"onClick={isRecording ? stop :  start}>
               {isRecording ? 'Recording' : 'Record'}
            </Button>
 
