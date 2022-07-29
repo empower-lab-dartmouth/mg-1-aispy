@@ -12,6 +12,9 @@ import {randomnumber} from "../../editor/randomnumber";
 import Images from "../../database/images.json";
 import { Conversation } from "../../editor/conversation";
 import useSpeechToText from 'react-hook-speech-to-text';
+import { useNavigate } from "react-router-dom";
+
+
 
 function Play(){
 
@@ -24,6 +27,7 @@ function Play(){
     const [read, setread] = useRecoilState(readtext);
     const [last ,setlast] = useRecoilState(lastmodel);
 
+    const navigate = useNavigate();
 
     const {
         error,
@@ -122,9 +126,14 @@ function Play(){
                 // find (document.getElementById("inputline") as  HTMLInputElement).value in labels and set it to the new object
                 var newAns = (document.getElementById("inputline") as  HTMLInputElement).value.toLowerCase().split(" ");
                 var newObj = "NA";
+                for(let i =0; i < newAns.length; i++){
+                    if(newAns[i] === "yes"){
+                        await setgamesys({...gamesys, state:END});
+                        (document.getElementById("inputline") as HTMLInputElement).value = "";
+                        return;
+                    }
+                }
                 for (let i = 0; i < newAns.length - 1; i++) {
-
-
                     if (newAns[i] === "a" || newAns[i] === "an" || newAns[i] === "the" || newAns[i] === "is") { // "it is a/an [object]", "this object is a/an [object]"
                         newObj = newAns[i + 1];
                     }
@@ -145,21 +154,34 @@ function Play(){
               
             }
             else{
-                setgamesys({...gamesys, state:END});
+                await setgamesys({...gamesys, state:END});
             }
         }
         else if(gamesys.state == LEARN){
-            setgamesys({...gamesys, state:END});
+            await setgamesys({...gamesys, state:END});
         }
         else if(gamesys.state == END){
-            if(gamesys.model == AISPY){
-                setgamesys({...gamesys, state:COLOR});
+            var newAns = (document.getElementById("inputline") as  HTMLInputElement).value.toLowerCase().split(" ");
+            for(let i =0; i < newAns.length; i++){
+                if(newAns[i] === "yes"){
+                    if(gamesys.model == AISPY){
+                        await setgamesys({...gamesys, state:COLOR});
+                    }
+                    else{
+                        await setgamesys({...gamesys, state:OBJECT});
+                    }
+                    (document.getElementById("inputline") as HTMLInputElement).value = "";
+                    return 
+                }
+                else if(newAns[i] === "no"){
+                    await setlast({state: gamesys.state, model: gamesys.model});
+                    navigate("/selection");
+                }
             }
-            else{
-                setgamesys({...gamesys, state:OBJECT});
-            }
+           
         }
         (document.getElementById("inputline") as HTMLInputElement).value = "";
+        return;
     }
 
 
@@ -177,6 +199,7 @@ function Play(){
                 {Conversation()}
                <Button variant="outlined" onClick = {() =>  window.speechSynthesis.speak(msg)}>Replay</Button>
            </div>
+           {   gamesys.state != LEARN &&
            <div className = "texts">
 
            <Input className = "space" id = "inputline" placeholder="Answer" inputProps={ariaLabel} />
@@ -186,6 +209,7 @@ function Play(){
            </Button>
 
            </div>
+           }
            <ul>
            {interimResult && <li>{interimResult}</li>}
             </ul>
