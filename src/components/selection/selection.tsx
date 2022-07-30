@@ -3,13 +3,16 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import { Link } from "react-router-dom";
 import {useRecoilState, useRecoilValue} from "recoil";
-import {game} from "../../store";
+import {currentimage, game} from "../../store";
 import {AISPY, YOUSPY, COLOR, OBJECT} from "../../models/names";
+import {randomnumber} from "../../editor/randomnumber";
+import Images from "../../database/images.json";
 
 
 function Selection(){
 
     const [gamesys, setgamesys] = useRecoilState(game);
+    const [selectedimage, setselectedimage] = useRecoilState(currentimage);
 
     return (
         <div className="selection">
@@ -21,7 +24,11 @@ function Selection(){
                 </Link>
             </Button>
 
-            <Button variant="contained"onClick = {async() =>setgamesys({state: OBJECT, model: YOUSPY,})}>
+            <Button variant="contained"onClick = {async() => {
+                let random = randomnumber(0, Images.length-1);
+                setselectedimage({label: Images[random].label, path: Images[random].path, id: random, color: Images[random].label[randomnumber(0, selectedimage.label.length - 1)][0] });
+                setgamesys({state: OBJECT, model: YOUSPY,});
+                }}>
                 <Link to = "/play" style={{ color: 'inherit', textDecoration: 'inherit'}}>
                 You Spy
                 </Link>

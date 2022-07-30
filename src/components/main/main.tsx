@@ -2,6 +2,7 @@ import "./main.css";
 import Button from '@mui/material/Button';
 import { Link } from "react-router-dom";
 
+
 const Main = () =>{
     return (
         <div className="main">

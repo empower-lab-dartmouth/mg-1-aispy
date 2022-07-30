@@ -7,6 +7,7 @@ export const currentimage = atom<image>({
         label : [[""]],
         path : "image.png",
         id : 0,
+        color: "NA",
     },
 })
 
@@ -20,11 +21,6 @@ export const game = atom({
 
 export const object = atom({
     key: "object",
-    default: "NA",
-})
-
-export const colorObject = atom({
-    key: "object-color",
     default: "NA",
 })
 
@@ -43,6 +39,7 @@ export const lastmodel = atom({
     default: {
         state: 0,
         model: 0,
+        color: "NA",
     },
 })
 
