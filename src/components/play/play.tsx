@@ -50,6 +50,7 @@ function Play(){
 
     useEffect (() => {
         // only voice out after the read updates
+        // logic may seem quite not intuitive here, better to find another way to fix the repeated voice out problem.
         if(isFirst.current == true){
              isFirst.current = false;
              if(gamesys.model == YOUSPY && gamesys.state == OBJECT){
@@ -103,6 +104,7 @@ function Play(){
             await setobj("NA");
             await setoldObj("NA");
 
+            // should change here, better not to use for in this way in ts
             for (var i = 0; i < selectedimage.label.length; i++) {
                 if (selectedimage.label[i][0] == color) {
                     var obj = selectedimage.label[i][randomnumber(1,selectedimage.label[i].length - 1)];
