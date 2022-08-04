@@ -20,12 +20,23 @@ const Imagelibrary = () => {
      setselectedimage({label: value.label, path: value.path, id: index, color: "NA"});
 
      var button = document.getElementById(index.toString());
+     /*
+      * Inconsistency with spaces and new lines, consider using something like
+     *  https://www.npmjs.com/package/eslint-config-airbnb
+     * a link package like this would make it super easy to standardize the look of the code.
+     * That also helps reduce errors.
+     */
      if(button){
      button.style.backgroundColor = "black";
      }
     }
 
     return (
+        /**
+         * consistency with naming schema, i.e. dashes, camel case, or all lowercase? 
+         * From my experience, we should prefer dashes or upper case camel case. 
+         * Upper camel case is probably most standard.
+         */
         <div className = "imagelibrary">
 
             <div className = "image-database">
