@@ -12,6 +12,12 @@ export const Conversation = () => {
     const image = useRecoilValue(currentimage);
 
 
+    /**
+     * These texts should be constants defined in a global vars file.
+     * If there are context variables required to render the text, e.g. `obj` 
+     * then define the strings as a function, e.g. something like: 
+     *  const convoTextName = (context: ContextType) => string
+     */
     useEffect (() => {
      var texts = "";
     if (gamesys.state == COLOR && gamesys.model == AISPY){   

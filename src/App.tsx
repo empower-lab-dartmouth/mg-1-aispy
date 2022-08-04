@@ -8,7 +8,17 @@ import Play from "./components/play/play"
 import Error from "./components/error";
 import {RecoilRoot} from "recoil";
 
+/**
+ * Heads up, this breaks on mobile. We should either use a library like https://mui.com/
+ * to manage layout and material design, or just insist to users that they do desktop.
+ * @tahsin something to note. ^
+ */
+
 function App() {
+  /**
+   * Nice use of react router :) 
+   */
+   
   return (
     <div className="App">
      <RecoilRoot>
