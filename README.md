@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+You can test it on: https://aispy-m2nd.onrender.com
+
 ## Available Scripts
 
 In the project directory, you can run:
